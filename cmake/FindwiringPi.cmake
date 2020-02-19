@@ -19,10 +19,6 @@ This will define the following variables:
 
 ``wiringPi_FOUND``
   True if the system has the wiringPi library.
-``wiringPi_INCLUDE_DIRS``
-  Include directories needed to use wiringPi.
-``wiringPi_LIBRARIES``
-  Libraries needed to link to wiringPi.
 
 #]=======================================================================]
 
@@ -37,8 +33,9 @@ find_package_handle_standard_args(wiringPi
         FOUND_VAR wiringPi_FOUND
         REQUIRED_VARS wiringPi_LIBRARY wiringPi_INCLUDE_DIR
         )
-# Set other output variables.
+# Create imported target.
 if(wiringPi_FOUND)
-    set(wiringPi_LIBRARIES ${wiringPi_LIBRARY})
-    set(wiringPi_INCLUDE_DIRS ${wiringPi_INCLUDE_DIR})
+    add_library(wiringPi INTERFACE IMPORTED)
+    target_include_directories(wiringPi INTERFACE "${wiringPi_INCLUDE_DIR}")
+    target_link_libraries(wiringPi INTERFACE "${wiringPi_LIBRARY}")
 endif()
