@@ -1,4 +1,5 @@
 #include <wiringPi.h>
+#include <chrono>
 #include <iostream>
 #include <csignal>
 
@@ -10,9 +11,11 @@
 #define PIN_RPM0 0
 // physical 13
 #define PIN_RPM1 2
+// events per rotation
+#define RPM_EPR 11
 
 void forward() {
-  pwmWrite(PIN_PWM0, 1024);
+  pwmWrite(PIN_PWM0, 900);
   pwmWrite(PIN_PWM1, 0);
 }
 
@@ -31,6 +34,27 @@ void handle_term(int sig) {
   exit(sig);
 }
 
+void delay_and_read_rpm(int dur_ms) {
+  int last_val = 0;
+  int edges = 0, reads = 0, min = 1024, max = 0;
+  auto start = std::chrono::system_clock::now();
+  auto end = start + std::chrono::milliseconds(dur_ms);
+  std::chrono::system_clock::time_point now;
+  do {
+    auto val = digitalRead(PIN_RPM0);
+    reads += 1;
+    if (last_val == 0 && val == 1) {
+      edges += 1;
+    }
+    if (val < min) min = val;
+    if (val > max) max = val;
+    last_val = val;
+    delay(1);
+    now = std::chrono::system_clock::now();
+  } while (now < end);
+  std::cout << "edges=" << edges << ", reads=" << reads << ", min=" << min << ", max=" << max << std::endl;
+}
+
 int main() {
   wiringPiSetup();
   signal(SIGHUP, handle_term);
@@ -42,13 +66,13 @@ int main() {
   pinMode(PIN_RPM0, INPUT);
   pinMode(PIN_RPM1, INPUT);
 
-  std::cout << "Hello, World again!!!" << std::endl;
+  std::cout << "Hello, World again!!! with chrono" << std::endl;
 
   while (true) {
     forward();
-    delay(5000);
+    delay_and_read_rpm(5000);
     backward();
-    delay(5000);
+    delay_and_read_rpm(5000);
   }
 
   return 0;
