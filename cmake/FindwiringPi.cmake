@@ -23,9 +23,7 @@ This will define the following variables:
 #]=======================================================================]
 
 # Find wiringPi include dir and library path.
-find_path(wiringPi_INCLUDE_DIR
-        NAMES wiringPi.h
-        )
+find_path(wiringPi_INCLUDE_DIR NAMES wiringPi.h)
 find_library(wiringPi_LIBRARY wiringPi)
 # Set WiringPi_FOUND output variable and print error message if wiringPi is missing.
 include(FindPackageHandleStandardArgs)
