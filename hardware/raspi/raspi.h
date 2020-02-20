@@ -10,6 +10,6 @@
 // physical 13
 #define PIN_RPM1 2
 // events per rotation
-#define RPM_EPR 11
+#define RPM_EPR (11 * 522)
 
 #endif //BLINDS_HARDWARE_RASPI_RASPI_H_
