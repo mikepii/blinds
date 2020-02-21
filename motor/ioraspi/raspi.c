@@ -1,10 +1,10 @@
 #include "raspi.h"
-#include <blinds/hdw/hdw.h>
+#include <blinds/motor/io/io.h>
 #include <wiringPi.h>
 #include <signal.h>
 #include <stdlib.h>
 
-void blinds_hdw_forward() {
+void blinds_motor_io_forward() {
   // 800 -> 1.4 rpm
   // 900 -> 4.0 rpm
   // 1024 -> 7.0 rpm
@@ -12,22 +12,26 @@ void blinds_hdw_forward() {
   pwmWrite(PIN_PWM1, 0);
 }
 
-void blinds_hdw_backward() {
+void blinds_motor_io_backward() {
   pwmWrite(PIN_PWM0, 0);
   pwmWrite(PIN_PWM1, 800);
 }
 
-void blinds_hdw_stop() {
+void blinds_motor_io_stop() {
   pwmWrite(PIN_PWM0, 0);
   pwmWrite(PIN_PWM1, 0);
 }
 
 static void handle_term(int sig) {
-  blinds_hdw_stop();
+  blinds_motor_io_stop();
   exit(sig);
 }
 
-void blinds_hdw_init() {
+int blinds_motor_io_read_rpm0() {
+  return digitalRead(PIN_RPM0);
+}
+
+void blinds_motor_io_init() {
   wiringPiSetup();
   signal(SIGHUP, handle_term);
   signal(SIGINT, handle_term);

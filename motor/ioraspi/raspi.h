@@ -1,5 +1,5 @@
-#ifndef BLINDS_HARDWARE_RASPI_RASPI_H_
-#define BLINDS_HARDWARE_RASPI_RASPI_H_
+#ifndef BLINDS_MOTOR_IORASPI_RASPI_H_
+#define BLINDS_MOTOR_IORASPI_RASPI_H_
 
 // physical 32
 #define PIN_PWM0 26
@@ -12,4 +12,4 @@
 // events per rotation
 #define RPM_EPR (11 * 522)
 
-#endif //BLINDS_HARDWARE_RASPI_RASPI_H_
+#endif //BLINDS_MOTOR_IORASPI_RASPI_H_

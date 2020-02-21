@@ -21,6 +21,7 @@ event_loop_t *blinds_conc_event_loop_create(size_t tasks_sz) {
   event_loop_t *event_loop = malloc(sizeof(event_loop_t));
   event_loop->tasks = calloc(tasks_sz, sizeof(task_t));
   event_loop->tasks_n = 0;
+  event_loop->tasks_sz = tasks_sz;
   return event_loop;
 }
 
@@ -30,6 +31,15 @@ void blinds_conc_event_loop_free(event_loop_t *event_loop) {
   }
   free(event_loop->tasks);
   free(event_loop);
+}
+
+int blinds_conc_event_loop_add_task(event_loop_t *event_loop, task_t *task) {
+  if (event_loop->tasks_n >= event_loop->tasks_sz) {
+    return -1;
+  }
+  event_loop->tasks[event_loop->tasks_n] = task;
+  event_loop->tasks_n++;
+  return 0;
 }
 
 void blinds_conc_run_loop(event_loop_t *event_loop) {
