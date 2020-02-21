@@ -1,4 +1,4 @@
-#include <blinds/concurrency/concurrency.h>
+#include <blinds/concurrency/eventloop.h>
 #include <blinds/hdw/hdw.h>
 #include <wiringPi.h>
 #include <stdio.h>
@@ -33,22 +33,14 @@ static void demo_fn(state_demo_t *state) {
   }
 }
 
-static task_t *create_demo() {
-  task_t *demo = blinds_conc_alloc_task();
-  demo->interval = 1;
-  demo->state = alloc_state_demo();
-  demo->destroy_state = (void (*)(void *)) &destroy_state_demo;
-  demo->fn = (void (*)(void *)) &demo_fn;
-  return demo;
-}
-
 int main() {
   blinds_hdw_init();
-  event_loop_t *event_loop = blinds_conc_alloc_event_loop(10);
-  event_loop->tasks[0] = create_demo();
+  event_loop_t *event_loop = blinds_conc_event_loop_create(10);
+  event_loop->tasks[0] = blinds_conc_task_create(alloc_state_demo(), 1,
+      (void (*)(void *)) &demo_fn, (void (*)(void *)) &destroy_state_demo);
   event_loop->tasks_n++;
   printf("Hello, World (event loop)\n");
   blinds_conc_run_loop(event_loop);
-  blinds_conc_destroy_event_loop(event_loop);
+  blinds_conc_event_loop_free(event_loop);
   return 0;
 }
