@@ -23,7 +23,7 @@ void blinds_motor_pos_state_free(blinds_motor_pos_state_t * state) {
   free(state);
 }
 
-static void motor_pos_stop(blinds_motor_pos_state_t *const state) {
+void blinds_motor_pos_stop(blinds_motor_pos_state_t *const state) {
   blinds_motor_io_stop();
   state->direction = stopped;
   if (state->completion_cb != NULL) {
@@ -108,7 +108,7 @@ void blinds_motor_pos_step(blinds_motor_pos_state_t *const state) {
   }
   update_position(state);
   if (!check_milestones(state)) {
-    motor_pos_stop(state);
+    blinds_motor_pos_stop(state);
     return;
   }
   add_milestone(state);
