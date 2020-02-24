@@ -1,11 +1,10 @@
 #ifndef BLINDS_MOTOR_INCLUDE_BLINDS_MOTOR_POSITION_H_
 #define BLINDS_MOTOR_INCLUDE_BLINDS_MOTOR_POSITION_H_
 
+#include <blinds/util/configure.h>
 #include <limits.h>
 #include <stddef.h>
 #define BLINDS_RPM_LEVEL_UNSET -1
-#define BLINDS_RPM_WATCH_EVENTS_SZ 100
-#define BLINDS_RPM_WATCH_ALLOWED_ERR_PCT 7.0
 
 enum blinds_motor_dir_t { stopped, forward, backward };
 typedef long blinds_motor_position_t;
@@ -15,7 +14,7 @@ typedef void blinds_motor_pos_cb_t(blinds_motor_position_t);
 
 typedef struct {
   unsigned time_micros;
-  int position;
+  blinds_motor_position_t position;
   unsigned time_created_micros;
 } position_milestone_t;
 
