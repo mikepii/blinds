@@ -3,9 +3,6 @@
 
 #include <stdbool.h>
 
-#define BLINDS_MOTOR_TARGET_RPM 4.0
-#define BLINDS_MOTOR_EV_PER_ROTATION (11*522)
-
 void blinds_motor_io_forward();
 void blinds_motor_io_backward();
 void blinds_motor_io_stop();

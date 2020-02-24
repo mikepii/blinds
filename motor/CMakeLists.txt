@@ -9,4 +9,4 @@ add_library(Blinds::Motor ALIAS Motor)
 target_include_directories(Motor PUBLIC include)
 target_link_libraries(Motor
         PUBLIC Blinds::Motor::IO
-        PRIVATE Blinds::Util)
+        PUBLIC Blinds::Util)

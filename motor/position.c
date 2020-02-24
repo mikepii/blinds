@@ -2,10 +2,8 @@
 #include <blinds/motor/io/io.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <blinds/util/configure.h>
 #include <blinds/util/util.h>
-
-#define BLINDS_MILESTONE_HORIZON_MICROS (500 * 1000)
-#define BLINDS_MILESTONE_INTERVAL_MICROS (20 * 1000)
 
 blinds_motor_pos_state_t *blinds_motor_pos_state_create() {
   blinds_motor_pos_state_t *state = malloc(sizeof(blinds_motor_pos_state_t));
