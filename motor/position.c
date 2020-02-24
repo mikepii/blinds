@@ -70,6 +70,13 @@ static bool check_milestones(blinds_motor_pos_state_t *const state) {
   return true;
 }
 
+#define events_expected ( \
+    (double) BLINDS_MOTOR_EV_PER_ROTATION * BLINDS_MOTOR_TARGET_RPM / 60 / 1000000 * BLINDS_MILESTONE_HORIZON_MICROS)
+static const blinds_motor_position_t events_required_fwd =
+    events_expected - BLINDS_RPM_WATCH_ALLOWED_ERR_PCT100_FWD / 100.0 * events_expected;
+static const blinds_motor_position_t events_required_bwd =
+    events_expected - BLINDS_RPM_WATCH_ALLOWED_ERR_PCT100_BWD / 100.0 * events_expected;
+
 static void add_milestone(blinds_motor_pos_state_t *const state) {
   const unsigned now = micros();
   // Limit milestones by interval
@@ -86,9 +93,9 @@ static void add_milestone(blinds_motor_pos_state_t *const state) {
   const blinds_motor_position_t events_required =
       events_expected - BLINDS_RPM_WATCH_ALLOWED_ERR_PCT / 100.0 * events_expected;
   if (state->direction == forward) {
-    state->milestones[idx].position = state->position + events_required;
+    state->milestones[idx].position = state->position + events_required_fwd;
   } else {
-    state->milestones[idx].position = state->position - events_required;
+    state->milestones[idx].position = state->position - events_required_bwd;
   }
   if (state->milestones_n < BLINDS_RPM_WATCH_EVENTS_SZ) {
     state->milestones_n += 1;

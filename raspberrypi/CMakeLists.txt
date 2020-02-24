@@ -8,4 +8,7 @@ add_library(RaspberryPi STATIC
         raspi_motor.c
         )
 add_library(Blinds::RaspberryPi ALIAS RaspberryPi)
-target_link_libraries(RaspberryPi PRIVATE wiringPi)
+target_link_libraries(RaspberryPi
+        PRIVATE Blinds::Util
+        PRIVATE wiringPi
+        )

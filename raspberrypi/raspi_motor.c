@@ -1,17 +1,15 @@
 #include "pins.h"
+#include <blinds/util/configure.h>
 #include <wiringPi.h>
 
 void blinds_motor_io_forward() {
-  // 800 -> 1.4 rpm
-  // 900 -> 4.0 rpm
-  // 1024 -> 7.0 rpm
-  pwmWrite(PIN_PWM0, 900);
+  pwmWrite(PIN_PWM0, BLINDS_PWM_VALUE);
   pwmWrite(PIN_PWM1, 0);
 }
 
 void blinds_motor_io_backward() {
   pwmWrite(PIN_PWM0, 0);
-  pwmWrite(PIN_PWM1, 900);
+  pwmWrite(PIN_PWM1, BLINDS_PWM_VALUE);
 }
 
 void blinds_motor_io_stop() {
