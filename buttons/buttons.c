@@ -8,9 +8,9 @@
 #include "blinds/buttons/buttons.h"
 #include <blinds/buttons/io/io.h>
 #include <blinds/motor/position.h>
+#include <blinds/util/logging.h>
 #include <limits.h>
 #include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
 
 /**
@@ -45,13 +45,13 @@ void blinds_buttons_step(blinds_buttons_state_t *const state) {
   const bool either = forward || backward;
   const bool either_prev = state->btn_backward_prev || state->btn_forward_prev;
   if (either_prev && !either) {
-    puts("buttons released");
+    logmsg(info, "buttons", "buttons released");
     blinds_motor_pos_stop(state->motor_pos_state);
   } else if (forward && !state->btn_forward_prev) {
-    puts("forward pressed");
+    logmsg(info, "buttons", "forward pressed");
     blinds_motor_pos_start(state->motor_pos_state, BLINDS_MOTOR_POS_MAX, NULL);
   } else if (backward && !state->btn_backward_prev) {
-    puts("backward pressed");
+    logmsg(info, "buttons", "backward pressed");
     blinds_motor_pos_start(state->motor_pos_state, BLINDS_MOTOR_POS_MIN, NULL);
   }
   state->btn_forward_prev = forward;

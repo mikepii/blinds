@@ -3,7 +3,6 @@
 #include <blinds/io/io.h>
 #include <blinds/motor/position.h>
 #include <signal.h>
-#include <stdio.h>
 #include <stdlib.h>
 
 static void clean_exit(const int signal) {
@@ -34,7 +33,6 @@ int main() {
                                                  (void (*)(void *)) &blinds_buttons_state_free);
   blinds_conc_event_loop_add_task(event_loop, buttons_task);
   // Run
-  printf("Hello, World (motor drive impl)\n");
   blinds_conc_run_loop(event_loop);
   blinds_conc_event_loop_free(event_loop);
   blinds_io_cleanup();
