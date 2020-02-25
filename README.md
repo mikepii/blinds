@@ -5,6 +5,8 @@ Determines the limits by sensing a slowdown in the motor.
 This is highly likely to rip the blinds off the window, so please don't use it.
 Currently built for RaspberryPi (with Arduino/AVR in mind).
 
+This is a work-in-progress. I plan on adding tests, Samsung SmartThings integration, and more documentation.
+
 ## Building
 
 Depends on the wiringPi library.
