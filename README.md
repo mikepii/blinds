@@ -2,7 +2,7 @@
 
 Automates window blinds (changing the angle of the slats) by pulling the pull cord.
 Determines the limits by sensing a slowdown in the motor.
-Highly likely to rip the blinds off the window.
+This is highly likely to rip the blinds off the window, so please don't use it.
 Currently built for RaspberryPi (with Arduino/AVR in mind).
 
 ## Building
