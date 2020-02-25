@@ -1,9 +1,22 @@
+/**
+ * @file util/include/blinds/util/configure.h.in
+ *
+ * CMake presently templates this to configure.h because
+ * I was thinking about making some of these values CMake-configurable.
+ *
+ * @see @file util/CMakeLists.txt
+ */
+
 #define BLINDS_RPM_WATCH_EVENTS_SZ 100
 #define BLINDS_RPM_WATCH_ALLOWED_ERR_PCT100_FWD 7.0
 #define BLINDS_RPM_WATCH_ALLOWED_ERR_PCT100_BWD 7.0
 // 800 -> 1.4 rpm
 // 900 -> 4.0 rpm
 // 1023 -> 7.0 rpm
+/**
+ * @brief Motor encoder sensor events per rotation
+ * 11 events per motor shaft rotation. 522:1 gear box (speed reducer).
+ */
 #define BLINDS_MOTOR_EV_PER_ROTATION (11*522)
 #define BLINDS_MILESTONE_HORIZON_MICROS (500 * 1000)
 #define BLINDS_MILESTONE_INTERVAL_MICROS (20 * 1000)
@@ -14,3 +27,5 @@
 #define BLINDS_PWM_FREQ 100.0
 #define BLINDS_PWM_RANGE 200
 #define BLINDS_PWM_VALUE ((int) (BLINDS_MOTOR_SPEED_PCT100 / 100.0 * BLINDS_PWM_RANGE))
+
+#define BLINDS_RPM_LOG_INTERVAL_S 2

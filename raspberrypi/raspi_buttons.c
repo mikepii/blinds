@@ -1,3 +1,8 @@
+/**
+ * @file raspberrypi/raspi_buttons.c
+ * @brief RaspberryPi button IO implementation.
+ */
+
 #include "pins.h"
 #include <wiringPi.h>
 #include <stdbool.h>
